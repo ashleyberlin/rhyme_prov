@@ -14,7 +14,7 @@ class App extends Component  {
 
   updateSearch(event){
     this.setState({search:event.target.value.substr(0, 15)})
-
+    console.log(this.state)
   }
 
   componentDidMount() {
@@ -23,28 +23,21 @@ class App extends Component  {
     .then((data) => {
       let articles = data.map((article) => {
         if (!article.title) return null;
-        return (
-        <div key={article.id} className='card'>
-          <h2> {article.title} </h2>
-          <p > {article.author} </p>
-          <p > {article.description} </p>
-          <p > {article.body} </p>
-        </div>
-        )
+        return article.title
       })
         this.setState({articles:articles})
+        console.log(this.state.articles)
     })
     .catch(console.log);
   }
 
   render() {
-     /*let filteredItems =this.state.articles.filter(
+    let filteredItems =this.state.articles.filter(
       (article) => {
-        return article.title.indexOf(this.state.search) !== -1;
+        return JSON.stringify(article).indexOf(this.state.search) !== -1;
       }
     )
-    console.log(filteredItems)*/
-
+    console.log(filteredItems)
     return (
       <div className='wrapper'>
         <h1>A React Test</h1>
@@ -55,9 +48,9 @@ class App extends Component  {
         onChange={this.updateSearch.bind(this)}
         />
         <div className="container">
-          {this.state.articles.map((articles) => {
-            return articles
-          })}
+          {filteredItems.map((item, i) => { 
+            return item !== null ? <div className='card' key={i}>{item}</div>:null
+            })}
         </div>
       </div>
     );
