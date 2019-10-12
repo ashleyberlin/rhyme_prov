@@ -23,7 +23,7 @@ class App extends Component  {
     .then((data) => {
       let articles = data.map((article) => {
         if (!article.title) return null;
-        return article.title
+        return article
       })
         this.setState({articles:articles})
         console.log(this.state.articles)
@@ -40,17 +40,26 @@ class App extends Component  {
     console.log(filteredItems)
     return (
       <div className='wrapper'>
-        <h1>A React Test</h1>
-        <input 
-        type='text' 
-        placeholder='search' 
-        value={this.state.search}
-        onChange={this.updateSearch.bind(this)}
-        />
-        <div className="container">
-          {filteredItems.map((item, i) => { 
-            return item !== null ? <div className='card' key={i}>{item}</div>:null
-            })}
+        <div className='form-wrapper'>
+          <h1>A React Test</h1>
+          <input 
+          type='text' 
+          placeholder='search' 
+          value={this.state.search}
+          onChange={this.updateSearch.bind(this)}
+          />
+          <div className="container">
+            {filteredItems.map((item, i) => { 
+              return item !== null ? 
+              <div className='card' key={i}>
+              <h2>{item.title}</h2>
+              <p>{item.author}</p>
+              <p>{item.description}</p>
+              <p>{item.body}</p>
+              </div>
+              :null
+              })}
+          </div>
         </div>
       </div>
     );
