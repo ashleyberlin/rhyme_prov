@@ -44,7 +44,7 @@ textarea:focus, input:focus{
 
 .form-wrapper {
   text-align: center;
-  width: 40%;
+  width: 400px;
   display: flex;
   flex-direction: column;
   justify-content: center;
